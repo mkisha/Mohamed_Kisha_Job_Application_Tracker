@@ -1,0 +1,25 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.page-title {
+    margin-bottom: 20px;
+}
+
+.card-stat {
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.table-actions form {
+    display: inline-block;
+    margin: 0;
+}
+
+textarea {
+    min-height: 110px;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}

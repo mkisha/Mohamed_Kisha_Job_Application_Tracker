@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="page-title">Dashboard</h2>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card card-stat p-3">
+            <h5>Total Companies</h5>
+            <p class="fs-3 mb-0">{{ stats.total_companies }}</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stat p-3">
+            <h5>Total Jobs</h5>
+            <p class="fs-3 mb-0">{{ stats.total_jobs }}</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stat p-3">
+            <h5>Total Applications</h5>
+            <p class="fs-3 mb-0">{{ stats.total_applications }}</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card card-stat p-3">
+            <h5>Total Contacts</h5>
+            <p class="fs-3 mb-0">{{ stats.total_contacts }}</p>
+        </div>
+    </div>
+</div>
+
+<div class="card p-3">
+    <h4>Application Status Breakdown</h4>
+    {% if stats.status_breakdown %}
+        <ul class="mb-0">
+            {% for item in stats.status_breakdown %}
+                <li><strong>{{ item.status }}</strong>: {{ item.total }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="mb-0">No application data yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

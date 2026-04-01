@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-3">Job Match</h2>
+
+<form method="POST" class="card p-4 mb-4">
+    <div class="mb-3">
+        <label class="form-label">Enter Your Skills (comma separated)</label>
+        <input type="text" name="skills" class="form-control"
+               value="{{ user_skills }}"
+               placeholder="Python, SQL, Flask">
+    </div>
+    <button type="submit" class="btn btn-success">Calculate Match</button>
+</form>
+
+{% if results %}
+    <div class="card p-3">
+        <h4>Matching Jobs</h4>
+        <table class="table table-bordered table-striped mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th>Job Title</th>
+                    <th>Company</th>
+                    <th>Match</th>
+                    <th>Missing Skills</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                <tr>
+                    <td>{{ result.job_title }}</td>
+                    <td>{{ result.company_name }}</td>
+                    <td>{{ result.match_percentage }}% ({{ result.matched_count }}/{{ result.total_required }})</td>
+                    <td>{{ result.missing_skills }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+{% endblock %}

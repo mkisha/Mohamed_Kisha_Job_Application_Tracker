@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-3">{{ "Edit Company" if company else "Add Company" }}</h2>
+
+<form method="POST" class="card p-4">
+    <div class="mb-3">
+        <label class="form-label">Company Name</label>
+        <input type="text" name="company_name" class="form-control" required
+               value="{{ company.company_name if company else '' }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Industry</label>
+        <input type="text" name="industry" class="form-control"
+               value="{{ company.industry if company else '' }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Website</label>
+        <input type="text" name="website" class="form-control"
+               value="{{ company.website if company else '' }}">
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">City</label>
+            <input type="text" name="city" class="form-control"
+                   value="{{ company.city if company else '' }}">
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">State</label>
+            <input type="text" name="state" class="form-control"
+                   value="{{ company.state if company else '' }}">
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Notes</label>
+        <textarea name="notes" class="form-control">{{ company.notes if company else '' }}</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
+{% endblock %}

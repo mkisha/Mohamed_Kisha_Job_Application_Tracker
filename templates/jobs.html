@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Jobs</h2>
+    <a href="{{ url_for('job_add') }}" class="btn btn-primary">Add Job</a>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Title</th>
+            <th>Company</th>
+            <th>Type</th>
+            <th>Salary</th>
+            <th>Date Posted</th>
+            <th>Requirements</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for job in jobs %}
+        <tr>
+            <td>{{ job.job_title }}</td>
+            <td>{{ job.company_name }}</td>
+            <td>{{ job.job_type or "" }}</td>
+            <td>
+                {% if job.salary_min or job.salary_max %}
+                    {{ job.salary_min or "" }} - {{ job.salary_max or "" }}
+                {% endif %}
+            </td>
+            <td>{{ job.date_posted or "" }}</td>
+            <td>{{ job.requirements_display }}</td>
+            <td class="table-actions">
+                <a href="{{ url_for('job_edit', job_id=job.job_id) }}" class="btn btn-sm btn-warning">Edit</a>
+                <form action="{{ url_for('job_delete', job_id=job.job_id) }}" method="POST" onsubmit="return confirm('Delete this job?');">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

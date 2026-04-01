@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-3">{{ "Edit Contact" if contact else "Add Contact" }}</h2>
+
+<form method="POST" class="card p-4">
+    <div class="mb-3">
+        <label class="form-label">Company</label>
+        <select name="company_id" class="form-select" required>
+            <option value="">Select a company</option>
+            {% for company in companies %}
+                <option value="{{ company.company_id }}"
+                    {% if contact and company.company_id == contact.company_id %}selected{% endif %}>
+                    {{ company.company_name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Contact Name</label>
+        <input type="text" name="contact_name" class="form-control" required
+               value="{{ contact.contact_name if contact else '' }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input type="text" name="title" class="form-control"
+               value="{{ contact.title if contact else '' }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" name="email" class="form-control"
+               value="{{ contact.email if contact else '' }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Phone</label>
+        <input type="text" name="phone" class="form-control"
+               value="{{ contact.phone if contact else '' }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">LinkedIn URL</label>
+        <input type="text" name="linkedin_url" class="form-control"
+               value="{{ contact.linkedin_url if contact else '' }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Notes</label>
+        <textarea name="notes" class="form-control">{{ contact.notes if contact else '' }}</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
+{% endblock %}

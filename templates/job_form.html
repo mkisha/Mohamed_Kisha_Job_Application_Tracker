@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-3">{{ "Edit Job" if job else "Add Job" }}</h2>
+
+<form method="POST" class="card p-4">
+    <div class="mb-3">
+        <label class="form-label">Company</label>
+        <select name="company_id" class="form-select" required>
+            <option value="">Select a company</option>
+            {% for company in companies %}
+                <option value="{{ company.company_id }}"
+                    {% if job and company.company_id == job.company_id %}selected{% endif %}>
+                    {{ company.company_name }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Job Title</label>
+        <input type="text" name="job_title" class="form-control" required
+               value="{{ job.job_title if job else '' }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Job Type</label>
+        <select name="job_type" class="form-select">
+            <option value="">Select type</option>
+            {% set selected_type = job.job_type if job else '' %}
+            <option value="Full-time" {% if selected_type == 'Full-time' %}selected{% endif %}>Full-time</option>
+            <option value="Part-time" {% if selected_type == 'Part-time' %}selected{% endif %}>Part-time</option>
+            <option value="Contract" {% if selected_type == 'Contract' %}selected{% endif %}>Contract</option>
+            <option value="Internship" {% if selected_type == 'Internship' %}selected{% endif %}>Internship</option>
+        </select>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Salary Min</label>
+            <input type="number" name="salary_min" class="form-control"
+                   value="{{ job.salary_min if job else '' }}">
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Salary Max</label>
+            <input type="number" name="salary_max" class="form-control"
+                   value="{{ job.salary_max if job else '' }}">
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Job URL</label>
+        <input type="text" name="job_url" class="form-control"
+               value="{{ job.job_url if job else '' }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Date Posted</label>
+        <input type="date" name="date_posted" class="form-control"
+               value="{{ job.date_posted if job else '' }}">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Requirements (comma separated)</label>
+        <input type="text" name="requirements" class="form-control"
+               value="{{ job.requirements_display if job else '' }}"
+               placeholder="Python, SQL, Flask">
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
+{% endblock %}

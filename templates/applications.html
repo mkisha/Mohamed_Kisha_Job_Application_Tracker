@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Applications</h2>
+    <a href="{{ url_for('application_add') }}" class="btn btn-primary">Add Application</a>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Job</th>
+            <th>Company</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Resume Version</th>
+            <th>Cover Letter</th>
+            <th>Interview Data</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for application in applications %}
+        <tr>
+            <td>{{ application.job_title }}</td>
+            <td>{{ application.company_name }}</td>
+            <td>{{ application.application_date }}</td>
+            <td>{{ application.status }}</td>
+            <td>{{ application.resume_version or "" }}</td>
+            <td>{{ application.cover_letter_text }}</td>
+            <td>{{ application.interview_data_display }}</td>
+            <td class="table-actions">
+                <a href="{{ url_for('application_edit', application_id=application.application_id) }}" class="btn btn-sm btn-warning">Edit</a>
+                <form action="{{ url_for('application_delete', application_id=application.application_id) }}" method="POST" onsubmit="return confirm('Delete this application?');">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
